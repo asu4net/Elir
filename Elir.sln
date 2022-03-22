@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElirEngine", "ElirEngine\ElirEngine.csproj", "{5D48F3E2-02CD-4C27-B231-5FCAF383C0DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElirEditor", "ElirEditor\ElirEditor.csproj", "{461F79B3-5F0D-4317-9AF8-985FE789F024}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElirEditor", "ElirEditor\ElirEditor.csproj", "{1CE622BB-9D44-4116-B3FA-53190ABCC93A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{5D48F3E2-02CD-4C27-B231-5FCAF383C0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D48F3E2-02CD-4C27-B231-5FCAF383C0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D48F3E2-02CD-4C27-B231-5FCAF383C0DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{461F79B3-5F0D-4317-9AF8-985FE789F024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{461F79B3-5F0D-4317-9AF8-985FE789F024}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{461F79B3-5F0D-4317-9AF8-985FE789F024}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{461F79B3-5F0D-4317-9AF8-985FE789F024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE622BB-9D44-4116-B3FA-53190ABCC93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE622BB-9D44-4116-B3FA-53190ABCC93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE622BB-9D44-4116-B3FA-53190ABCC93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE622BB-9D44-4116-B3FA-53190ABCC93A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

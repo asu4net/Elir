@@ -18,7 +18,9 @@ namespace ElirEngine
     /// </summary>
     public class Window : GameWindow
     {
-        public Window()
+        Renderer renderer;
+
+        public Window(Renderer renderer)
 
             : base(GameWindowSettings.Default,
 
@@ -27,7 +29,9 @@ namespace ElirEngine
                       Size = new Vector2i(1600, 900),
                       APIVersion = new Version(4, 5)
                   })
-        { }
+        {
+            this.renderer = renderer;
+        }
 
         protected override void OnLoad()
         {
@@ -46,16 +50,7 @@ namespace ElirEngine
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             base.OnRenderFrame(args);
-
-            //actualizar ventana
-
-            GL.ClearColor(new Color4(0, 32, 48, 255));
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-
-            //mostrar demo de imgui
-
-            //renderizar ventana
-
+            renderer.Render();
             SwapBuffers();
         }
     }

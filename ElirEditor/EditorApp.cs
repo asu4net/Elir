@@ -7,15 +7,8 @@ using ElirEngine;
 
 namespace ElirEditor
 {
-    /// <summary>
-    /// Esta clase es una aplicación de Elir Engine.
-    /// Provisionalmente saluda cuando es creada.
-    /// </summary>
-    internal class EditorApp : App
+    public class EditorApp : ElirEngine.App
     {
-        public EditorApp()
-        {
-            Console.WriteLine("Hello World");
-        }
+        public override void Run() {}
     }
 }

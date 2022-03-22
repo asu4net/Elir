@@ -6,14 +6,21 @@
     /// </summary>
     public abstract class App
     {
+        public Renderer Renderer { get; private set; }
+
+        protected App()
+        {
+            Renderer = new Renderer();
+        }
+
         /// <summary>
         /// El método Run se llama justo después de que
         /// la aplicación sea creada y ejecuta el bucle
         /// principal de Elir.
         /// </summary>
-        public void Run()
+        public virtual void Run()
         {
-            Window window = new Window();
+            Window window = new Window(Renderer);
             window.Run();
         }
 
@@ -22,7 +29,10 @@
         /// de cualquier solución que implemente Elir.
         /// </summary>
         /// <param name="app">Implementación de una aplicación de Elir.</param>
-        public static void Create(App app)
-            => app.Run();
+        public static App Create(App app)
+        {
+            app.Run();
+            return app;
+        }
     }
 }
