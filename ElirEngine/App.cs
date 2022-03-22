@@ -32,7 +32,6 @@
         public static App Create(App app)
         {
             app.Run();
-            Log.Info("Aplicación creada.");
             return app;
         }
     }
