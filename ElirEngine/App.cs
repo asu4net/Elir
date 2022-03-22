@@ -13,7 +13,8 @@
         /// </summary>
         public void Run()
         {
-            while (true) ;
+            Window window = new Window();
+            window.Run();
         }
 
         /// <summary>
