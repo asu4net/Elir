@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenTK.Wpf;
+using ElirEngine;
+
+using Window = System.Windows.Window;
 
 namespace ElirEditor
 {
@@ -37,6 +40,8 @@ namespace ElirEditor
 
             OpenTkControl.Start(settings);
             #endregion
+
+            Log.Info("Ventana de Open TK Control creada.");
 
             //Creación de la implementación de ElirEngine para el editor.
             editorApp = (EditorApp) ElirEngine.App.Create(new EditorApp());
