@@ -27,6 +27,8 @@ namespace ElirEditor
         {
             InitializeComponent();
 
+            //Inicio de la ventana de WPF TK Control.
+            #region WPF TK Control
             var settings = new GLWpfControlSettings
             {
                 MajorVersion = 4,
@@ -34,12 +36,16 @@ namespace ElirEditor
             };
 
             OpenTkControl.Start(settings);
+            #endregion
 
+            //Creación de la implementación de ElirEngine para el editor.
             editorApp = (EditorApp) ElirEngine.App.Create(new EditorApp());
         }
 
+        //Método que llama WPF TK Control cuando renderiza un frame.
         private void OpenTkControl_OnRender(TimeSpan delta)
         {
+            //En ausencia de una ventana del motor llamamos al Renderer
             editorApp.Renderer.Render();
         }
     }

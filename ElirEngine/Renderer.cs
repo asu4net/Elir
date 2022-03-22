@@ -8,6 +8,11 @@ using OpenTK.Mathematics;
 
 namespace ElirEngine
 {
+    /// <summary>
+    /// En esta clase contendrá métodos relacionados
+    /// con el renderizado del engine en los que se
+    /// ejecutará código de OpenGL.
+    /// </summary>
     public class Renderer
     {
         public void Render()
