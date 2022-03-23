@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using ElirEngine.Console;
 
-namespace ElirEngine
+namespace ElirEngine.Rendering
 {
     /// <summary>
     /// En esta clase contendrá métodos relacionados

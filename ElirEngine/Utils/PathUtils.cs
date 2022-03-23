@@ -5,10 +5,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ElirEngine.Console;
 
-namespace ElirEngine
+namespace ElirEngine.Utils
 {
-    public static class Utils
+    public static class PathUtils
     {
         public static string? GetProjectDir([CallerFilePath] string sender = "")
         {

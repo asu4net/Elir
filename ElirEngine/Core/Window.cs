@@ -8,8 +8,10 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using ElirEngine.Console;
+using ElirEngine.Rendering;
 
-namespace ElirEngine
+namespace ElirEngine.Core
 {
     /// <summary>
     /// Controla la ventana principal de Elir.

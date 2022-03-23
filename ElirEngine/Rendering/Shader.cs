@@ -6,8 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ElirEngine.Console;
+using ElirEngine.Utils;
 
-namespace ElirEngine
+namespace ElirEngine.Rendering
 {
     public class Shader : IDisposable
     {
@@ -78,7 +80,7 @@ namespace ElirEngine
         int CreateShader(ShaderType type, string path)
         {
             Log.Debug($"Creando {path}...");
-            var completePath = $"{Utils.GetProjectDir()}{@"\"}{SHADER_FOLDER}{@"\"}{path}";
+            var completePath = $"{PathUtils.GetProjectDir()}{@"\"}{SHADER_FOLDER}{@"\"}{path}";
             int shader = GL.CreateShader(type);
             GL.ShaderSource(shader, GetSourceCode(completePath));
             Log.Debug($"{path} creado.");

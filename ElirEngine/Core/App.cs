@@ -1,4 +1,7 @@
-﻿namespace ElirEngine
+﻿using ElirEngine.Console;
+using ElirEngine.Rendering;
+
+namespace ElirEngine.Core
 {
     /// <summary>
     /// Clase padre de cualquier aplicación de Elir.

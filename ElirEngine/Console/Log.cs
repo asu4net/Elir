@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace ElirEngine
+namespace ElirEngine.Console
 {
     /// <summary>
     /// Clase que gestiona los Logs del Engine.

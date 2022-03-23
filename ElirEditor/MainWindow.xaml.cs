@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenTK.Wpf;
 using ElirEngine;
+using ElirEngine.Console;
+using ElirEngine.Rendering;
 
 using Window = System.Windows.Window;
 
@@ -32,7 +34,7 @@ namespace ElirEditor
             Log.Debug("Ventana creada.");
 
             //Creación de la implementación de ElirEngine para el editor.
-            editorApp = (EditorApp) ElirEngine.App.Create(new EditorApp
+            editorApp = (EditorApp) ElirEngine.Core.App.Create(new EditorApp
                 (new Renderer(Renderer.WindowSettings.Default)));
 
             var settings = new GLWpfControlSettings

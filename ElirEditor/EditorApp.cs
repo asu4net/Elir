@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ElirEngine;
+using ElirEngine.Rendering;
 
 namespace ElirEditor
 {
@@ -12,7 +13,7 @@ namespace ElirEditor
     /// después de iniciar la ventana de WPF. Aquí irá
     /// la lógica relacionada con el editor.
     /// </summary>
-    public class EditorApp : ElirEngine.App
+    public class EditorApp : ElirEngine.Core.App
     {
         public EditorApp(Renderer renderer) : base(renderer) {}
 
