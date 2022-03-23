@@ -39,7 +39,15 @@ namespace ElirEngine
             => this.wSettings = wSettings;
 
         int VBO; //Vertex Buffer Object
+        int VAO; //Vertex Array Object
+
         Shader? shader;
+
+        const string POS_ATR_NAME = "aPosition";
+        const string COLOR_ATR_NAME = "shapeColor";
+
+        Color4 backgroundColor = Color4.Black;
+        Color4 shapeColor = Color4.Red;
 
         float[] vertices =
         {
@@ -52,24 +60,48 @@ namespace ElirEngine
         public void OnLoad()
         {
             Log.Debug("Renderer iniciado.");
+            
             VBO = GL.GenBuffer();
+            VAO = GL.GenVertexArray();
+            
+            GL.BindVertexArray(VAO);
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+            
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices,
                 BufferUsageHint.StaticDraw);
+
             shader = new Shader();
+
+            var posAtrPtr = shader.GetAttribLocation(POS_ATR_NAME);
+
+            GL.VertexAttribPointer(posAtrPtr, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(posAtrPtr);
+
+            shader.Use();
+            shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }
 
         //Llamar cada vez que se renderiza un frame.
         public void OnRenderFrame(TimeSpan delta)
         {
-            GL.ClearColor(new Color4(0, 32, 48, 255));
+            GL.ClearColor(backgroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+
+            if (shader != null)
+                shader.Use();
+
+            GL.BindVertexArray(VAO);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
         }
 
         public void OnUnload()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.BindVertexArray(0);
+
             GL.DeleteBuffer(VBO);
+            GL.DeleteBuffer(VAO);
+
             if (shader == null)
                 return;
             shader.Dispose();

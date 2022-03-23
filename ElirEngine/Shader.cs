@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ElirEngine
          Representa la localización final de 
          nuestro shader después de ser compilado.
          */
-        int handle;
+        int shaderLocation;
         bool disposeableValue;
 
         const string SHADER_FOLDER = "Shaders";
@@ -35,7 +36,16 @@ namespace ElirEngine
         }
 
         public void Use()
-            => GL.UseProgram(handle);
+            => GL.UseProgram(shaderLocation);
+
+        public int GetAttribLocation(string attribName)
+            => GL.GetAttribLocation(shaderLocation, attribName);
+
+        public void SetUniformVec4(string attribName, Vector4 value)
+        {
+            int location = GL.GetUniformLocation(shaderLocation, attribName);
+            GL.Uniform4(location, value.X, value.Y, value.Z, value.W);
+        }
 
         public void Dispose()
         {
@@ -44,12 +54,12 @@ namespace ElirEngine
         }
 
         ~Shader()
-            => GL.DeleteProgram(handle);
+            => GL.DeleteProgram(shaderLocation);
 
         void Dispose(bool disposing)
         {
             if (disposeableValue) return;
-            GL.DeleteProgram(handle);
+            GL.DeleteProgram(shaderLocation);
             disposeableValue = true;
         }
 
@@ -92,15 +102,15 @@ namespace ElirEngine
         void CreateHandle(int vertex, int fragment)
         {
             Log.Debug($"Combinando shaders...");
-            handle = GL.CreateProgram();
+            shaderLocation = GL.CreateProgram();
 
-            GL.AttachShader(handle, vertex);
-            GL.AttachShader(handle, fragment);
+            GL.AttachShader(shaderLocation, vertex);
+            GL.AttachShader(shaderLocation, fragment);
 
-            GL.LinkProgram(handle);
+            GL.LinkProgram(shaderLocation);
 
-            GL.DetachShader(handle, vertex);
-            GL.DetachShader(handle, fragment);
+            GL.DetachShader(shaderLocation, vertex);
+            GL.DetachShader(shaderLocation, fragment);
 
             GL.DeleteShader(vertex);
             GL.DeleteShader(fragment);
