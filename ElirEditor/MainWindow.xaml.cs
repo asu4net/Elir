@@ -29,6 +29,7 @@ namespace ElirEditor
         public MainWindow()
         {
             InitializeComponent();
+            Log.Debug("Ventana creada.");
 
             //Creación de la implementación de ElirEngine para el editor.
             editorApp = (EditorApp) ElirEngine.App.Create(new EditorApp
@@ -45,6 +46,8 @@ namespace ElirEditor
 
             OpenTkControl.Loaded += (a, b) => { editorApp.Renderer.OnLoad(); };
             OpenTkControl.Render += editorApp.Renderer.OnRenderFrame;
+            OpenTkControl.Unloaded += (a, b) => { editorApp.Renderer.OnUnload(); };
+            Log.Debug("WPF OpenTK Control iniciado.");
         }
     }
 }

@@ -55,5 +55,11 @@ namespace ElirEngine
             renderer.OnRenderFrame(timeSpan);
             SwapBuffers();
         }
+
+        protected override void OnUnload()
+        {
+            base.OnUnload();
+            renderer.OnUnload();
+        }
     }
 }
