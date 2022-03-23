@@ -8,9 +8,9 @@
     {
         public Renderer Renderer { get; private set; }
 
-        protected App()
+        protected App(Renderer renderer)
         {
-            Renderer = new Renderer();
+            Renderer = renderer;
         }
 
         /// <summary>

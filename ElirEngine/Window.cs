@@ -26,8 +26,8 @@ namespace ElirEngine
 
                   new NativeWindowSettings()
                   {
-                      Size = new Vector2i(1600, 900),
-                      APIVersion = new Version(4, 5)
+                      Size = new Vector2i(renderer.wSettings.xSize, renderer.wSettings.ySize),
+                      APIVersion = new Version(renderer.wSettings.glMinorVersion, renderer.wSettings.glMajorVersion)
                   })
         {
             this.renderer = renderer;
@@ -36,7 +36,8 @@ namespace ElirEngine
         protected override void OnLoad()
         {
             base.OnLoad();
-            Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+            //Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+            renderer.OnLoad();
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -50,7 +51,8 @@ namespace ElirEngine
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             base.OnRenderFrame(args);
-            renderer.Render();
+            TimeSpan timeSpan = TimeSpan.FromSeconds(args.Time);
+            renderer.OnRenderFrame(timeSpan);
             SwapBuffers();
         }
     }

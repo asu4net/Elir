@@ -14,6 +14,8 @@ namespace ElirEditor
     /// </summary>
     public class EditorApp : ElirEngine.App
     {
+        public EditorApp(Renderer renderer) : base(renderer) {}
+
         /* Sobreescribimos Run borrando el base para 
          * evitar la creación de una ventana de Elir Engine,
          * ya que la librería de WPF TK COntrol provee la suya 

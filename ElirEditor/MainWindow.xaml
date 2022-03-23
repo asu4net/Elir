@@ -33,8 +33,7 @@
             <TabItem Header="Game">
                 <Grid Background="#FFE5E5E5">
                     <glWpfControl:GLWpfControl
-                    x:Name="OpenTkControl"
-                    Render="OpenTkControl_OnRender"
+                    x:Name="OpenTkControl"                 
                     Panel.ZIndex="1" />
                 </Grid>
             </TabItem>

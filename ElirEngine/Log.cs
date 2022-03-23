@@ -17,6 +17,8 @@ namespace ElirEngine
     /// </summary>
     public static class Log
     {
+        public static event Action<Level>? OnReleased;
+
         public const string LOG_FILE_NAME = "Logs.txt";
         public enum Level { Debug, Info, Warn, Error }
 
@@ -43,16 +45,28 @@ namespace ElirEngine
         internal static bool IsConfigured => LogManager.GetRepository().Configured;
 
         public static void Debug(string message, [CallerFilePath] string sender = "")
-            => ConfigILog(sender).Debug(message);
+        {
+            ConfigILog(sender).Debug(message);
+            OnReleased?.Invoke(Level.Debug);
+        }
 
         public static void Info(string message, [CallerFilePath] string sender = "")
-            => ConfigILog(sender).Info(message);
+        {
+            ConfigILog(sender).Info(message);
+            OnReleased?.Invoke(Level.Info);
+        }
 
         public static void Warn(string message, [CallerFilePath] string sender = "")
-            => ConfigILog(sender).Warn(message);
+        {
+            ConfigILog(sender).Warn(message);
+            OnReleased?.Invoke(Level.Warn);
+        }
 
         public static void Error(string message, [CallerFilePath] string sender = "")
-            => ConfigILog(sender).Error(message);
+        {
+            ConfigILog(sender).Error(message);
+            OnReleased?.Invoke(Level.Error);
+        }
 
         static ILog ConfigILog(string sender)
         {
@@ -79,7 +93,8 @@ namespace ElirEngine
     {
         override protected void Convert(TextWriter writer, object state)
         {
-            writer.Write($"{AppDomain.CurrentDomain.BaseDirectory}{@"\"}{Log.LOG_FILE_NAME}");
+            writer.Write($"{AppDomain.CurrentDomain.BaseDirectory}" +
+                $"{@"\"}{Log.LOG_FILE_NAME}");
         }
     }
 }
