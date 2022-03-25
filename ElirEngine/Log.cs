@@ -105,22 +105,21 @@ namespace ElirEngine
 
         static ILog ConfigILog(string sender)
         {
-            GlobalContext.Properties["Sender"] = GetFileNamespace(sender);
-            ILog log = LogManager.GetLogger(GetFileName(sender));
+            ILog log = LogManager.GetLogger(GetLoggerStr(sender));
             ((log4net.Repository.Hierarchy.Logger)log.Logger).Level = log4netLevel;
             return log;
         }
 
-        static string GetFileName(string sender)
+        static string GetLoggerStr(string sender)
         {
-            var fileNameArray = sender.Split('\\');
-            return fileNameArray[fileNameArray.Length - 1].Replace(".cs", "");
-        }
-
-        static string GetFileNamespace(string sender)
-        {
-            var fileNameArray = sender.Split('\\');
-            return fileNameArray[fileNameArray.Length - 2];
+            var senderStrList = sender.Split('\\').ToList();
+            var projectStr = senderStrList.Find(o => o.Equals("Elir"));
+            if (string.IsNullOrEmpty(projectStr)) return string.Empty;
+            var projectStrIndex = senderStrList.IndexOf(projectStr);
+            var sb = new StringBuilder();
+            for (int i = projectStrIndex + 1; i < senderStrList.Count; i++)
+                sb.Append($"{senderStrList[i]}.");
+            return sb.ToString().Replace(".cs.", string.Empty);
         }
     }
 

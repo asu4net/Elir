@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ElirEngine;
 using ElirEngine.Rendering;
 
-namespace ElirEditor
+namespace ElirEditor.Core
 {
     /// <summary>
     /// Clase principal del Elir Editor. Se crea justo
