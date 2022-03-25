@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenTK.Wpf;
 using ElirEngine;
-using ElirEngine.Console;
 using ElirEngine.Rendering;
 
 using Window = System.Windows.Window;
@@ -33,8 +32,16 @@ namespace ElirEditor
             InitializeComponent();
             Log.Debug("Ventana creada.");
 
+            Log.OnReleased += (args) =>
+            {
+                var consoleStackPanel = (StackPanel)FindName("ConsoleStackPanel");
+                TextBlock line = new TextBlock();
+                line.Text = args.message;
+                consoleStackPanel.Children.Add(line);
+            };
+
             //Creación de la implementación de ElirEngine para el editor.
-            editorApp = (EditorApp) ElirEngine.Core.App.Create(new EditorApp
+            editorApp = (EditorApp)ElirEngine.Core.App.Create(new EditorApp
                 (new Renderer(Renderer.WindowSettings.Default)));
 
             var settings = new GLWpfControlSettings
@@ -44,12 +51,14 @@ namespace ElirEditor
             };
 
             //Inicio de la ventana de WPF TK Control.
-            OpenTkControl.Start(settings);          
+            OpenTkControl.Start(settings);
 
             OpenTkControl.Loaded += (a, b) => { editorApp.Renderer.OnLoad(); };
             OpenTkControl.Render += editorApp.Renderer.OnRenderFrame;
             OpenTkControl.Unloaded += (a, b) => { editorApp.Renderer.OnUnload(); };
             Log.Debug("WPF OpenTK Control iniciado.");
+
+
         }
     }
 }

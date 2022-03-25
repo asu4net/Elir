@@ -1,5 +1,4 @@
-﻿using ElirEngine.Console;
-using ElirEngine.Rendering;
+﻿using ElirEngine.Rendering;
 
 namespace ElirEngine.Core
 {

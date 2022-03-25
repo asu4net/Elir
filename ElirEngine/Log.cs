@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace ElirEngine.Console
+namespace ElirEngine
 {
     /// <summary>
     /// Clase que gestiona los Logs del Engine.
@@ -17,12 +17,41 @@ namespace ElirEngine.Console
     /// </summary>
     public static class Log
     {
-        public static event Action<Level>? OnReleased;
+        public struct ReleasedArgs
+        {
+            public Level level;
+            public string message;
 
-        public const string LOG_FILE_NAME = "Logs.txt";
+            public ReleasedArgs(Level level, string message)
+            {
+                this.level = level;
+                this.message = message;
+            }
+        }
         public enum Level { Debug, Info, Warn, Error }
 
-        public static Level CurrentLevel 
+
+        public static event Action<ReleasedArgs>? OnReleased;
+
+        public static string LastLog
+        {
+            get
+            {
+                var fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                var lines = new List<string>();
+                using (var sr = new StreamReader(fs))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        lines.Add(sr.ReadLine());
+                    }
+                }
+                return lines[lines.Count-1];
+            }
+        }
+        public static string FilePath => 
+            $"{AppDomain.CurrentDomain.BaseDirectory}{LOG_FILE_NAME}";
+        public static Level CurrentLevel
         {
             get => currentLevel;
 
@@ -30,7 +59,7 @@ namespace ElirEngine.Console
             {
                 currentLevel = value;
 
-                switch(currentLevel)
+                switch (currentLevel)
                 {
                     case Level.Debug: log4netLevel = log4net.Core.Level.Debug; return;
                     case Level.Info: log4netLevel = log4net.Core.Level.Info; return;
@@ -39,34 +68,40 @@ namespace ElirEngine.Console
                 }
             }
         }
+
+        public const string LOG_FILE_NAME = "Logs.txt";
+
         static Level currentLevel = Level.Debug;
         static log4net.Core.Level log4netLevel = log4net.Core.Level.Debug;
 
-        internal static bool IsConfigured => LogManager.GetRepository().Configured;
+        public static bool IsConfigured => LogManager.GetRepository().Configured;
 
         public static void Debug(string message, [CallerFilePath] string sender = "")
         {
             ConfigILog(sender).Debug(message);
-            OnReleased?.Invoke(Level.Debug);
+            InvokeOnReleased(Level.Debug);
         }
 
         public static void Info(string message, [CallerFilePath] string sender = "")
         {
             ConfigILog(sender).Info(message);
-            OnReleased?.Invoke(Level.Info);
+            InvokeOnReleased(Level.Info);
         }
 
         public static void Warn(string message, [CallerFilePath] string sender = "")
         {
             ConfigILog(sender).Warn(message);
-            OnReleased?.Invoke(Level.Warn);
+            InvokeOnReleased(Level.Warn);
         }
 
         public static void Error(string message, [CallerFilePath] string sender = "")
         {
             ConfigILog(sender).Error(message);
-            OnReleased?.Invoke(Level.Error);
+            InvokeOnReleased(Level.Error);
         }
+
+        static void InvokeOnReleased(Level level)
+            => OnReleased?.Invoke(new ReleasedArgs(level, LastLog));
 
         static ILog ConfigILog(string sender)
         {
