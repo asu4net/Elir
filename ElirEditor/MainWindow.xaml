@@ -47,10 +47,13 @@
         </TabControl>
 
         <Grid Grid.Column="4" Grid.Row="7">
-            <StackPanel x:Name="ConsoleStackPanel">
+            <ScrollViewer>
+                <StackPanel x:Name="ConsoleStackPanel">
 
 
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            
         </Grid>
 
     </Grid>
