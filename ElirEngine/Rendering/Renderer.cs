@@ -92,6 +92,7 @@ namespace ElirEngine.Rendering
 
             GL.BindVertexArray(VAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.Finish();
         }
 
         public void OnUnload()
