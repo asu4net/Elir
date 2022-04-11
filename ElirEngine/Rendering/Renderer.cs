@@ -38,8 +38,10 @@ namespace ElirEngine.Rendering
         public Renderer(WindowSettings wSettings) 
             => this.wSettings = wSettings;
 
-        int VBO; //Vertex Buffer Object
-        int VAO; //Vertex Array Object
+        public event Action<TimeSpan>? OnUpdate;
+
+        //int VBO; //Vertex Buffer Object
+        //int VAO; //Vertex Array Object
 
         Shader? shader;
 
@@ -49,26 +51,28 @@ namespace ElirEngine.Rendering
         Color4 backgroundColor = Color4.Black;
         Color4 shapeColor = Color4.Red;
 
-        float[] vertices =
-        {
-            -0.5f, -0.5f, 0.0f, //Bottom-left vertex
-             0.5f, -0.5f, 0.0f, //Bottom-right vertex
-             0.0f,  0.5f, 0.0f  //Top vertex
+        int[] indices = {
+            0, 3, 1,
+            1, 3, 2,
+            2, 3, 0,
+            0, 1, 2
         };
+
+        float[] vertices = {
+            -1.0f, -1.0f, 0.0f,
+             0.0f, -1.0f, 1.0f,
+             1.0f, -1.0f, 0.0f,
+             0.0f,  1.0f, 0.0f
+        };
+
+        Mesh triangle;
 
         //Llamar cuando se cargue la ventana.
         public void OnLoad()
         {
             Log.Debug("Renderer iniciado.");
             
-            VBO = GL.GenBuffer();
-            VAO = GL.GenVertexArray();
-            
-            GL.BindVertexArray(VAO);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
-            
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices,
-                BufferUsageHint.StaticDraw);
+            triangle = new Mesh(vertices, indices, 12, 12);
 
             shader = new Shader();
 
@@ -90,18 +94,15 @@ namespace ElirEngine.Rendering
             if (shader != null)
                 shader.Use();
 
-            GL.BindVertexArray(VAO);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            if (triangle != null)
+                triangle.Render();
+
             GL.Finish();
         }
 
         public void OnUnload()
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-
-            GL.DeleteBuffer(VBO);
-            GL.DeleteBuffer(VAO);
+            triangle.Dispose();
 
             if (shader == null)
                 return;
