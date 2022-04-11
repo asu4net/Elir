@@ -10,7 +10,9 @@ namespace ElirEngine.Core
     {
         public Entity entity;
 
+        public virtual void Load() { }
         public virtual void Start() { }
         public virtual void Update(TimeSpan delta) { }
+        public virtual void Unload() { }
     }
 }

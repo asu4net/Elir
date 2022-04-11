@@ -37,7 +37,7 @@ namespace ElirEditor
             
             new Console(this);
             Log.Debug("Ventana creada.");
-            
+
             //Creación de la implementación de ElirEngine para el editor.
             editorApp = (EditorApp)ElirEngine.Core.App.Create(new EditorApp
                 (new Renderer(Renderer.WindowSettings.Default)));

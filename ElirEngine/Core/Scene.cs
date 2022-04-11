@@ -10,46 +10,42 @@ namespace ElirEngine.Core
     public class Scene
     {
         public string name;
-        public string buildIndex;
+        public int buildIndex;
 
-        bool loaded;
+        Renderer renderer;
 
         List<Entity> entities = new List<Entity>();
 
-        public Scene(string name, string buildIndex)
+        public Scene(string name, int buildIndex, Renderer renderer)
         {
             this.name = name;
             this.buildIndex = buildIndex;
+            this.renderer = renderer;
+            renderer.OnWindowLoaded += Load;
+            renderer.OnUpdate += UpdateEntityEssentials;
+            renderer.OnDestroy += Unload;
         }
 
         public void AddEntity(Entity entity)
             => entities.Add(entity);
 
-        public void Init(Renderer renderer)
-        {
-            renderer.OnUpdate += OnUpdate;
-        }
-
         public void Load()
+            => entities.ForEach(e => e.LoadComponents());
+
+        public void Init()
         {
-            entities.ForEach(e => e.Components.ForEach(c => c.Start()));
-            loaded = true;
+            renderer.OnUpdate -= UpdateEntityEssentials;
+            entities.ForEach(e => e.StartComponents());
+            renderer.OnUpdate += UpdateEntities;
         }
 
         public void Unload()
-        {
-            loaded = false;
-        }
+            => entities.ForEach(e => e.UnloadComponents());
 
-        void OnUpdate(TimeSpan delta)
-        {
-            //aquí se ejecuta el componente transform si lo hay
-            //aquí se ejecuta el componente renderer si lo hay
+        void UpdateEntityEssentials(TimeSpan delta)
+            => entities.ForEach(e => e.UpdateEssentialComponents(delta));
 
-            if (!loaded)
-                return;
-
-            entities.ForEach(e => e.Components.ForEach(c => c.Update(delta)));
-        }
+        void UpdateEntities(TimeSpan delta)
+            => entities.ForEach(e => e.UpdateComponents(delta));
     }
 }

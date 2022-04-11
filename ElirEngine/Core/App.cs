@@ -9,10 +9,19 @@ namespace ElirEngine.Core
     public abstract class App
     {
         public Renderer Renderer { get; private set; }
+        Scene scene;
 
         protected App(Renderer renderer)
         {
             Renderer = renderer;
+            
+            
+            scene = new Scene("Default", 0, Renderer);
+
+            var pyramid = new Entity();
+            pyramid.AddComponent<MeshRenderer>();
+            scene.AddEntity(pyramid);
+        
         }
 
         /// <summary>
