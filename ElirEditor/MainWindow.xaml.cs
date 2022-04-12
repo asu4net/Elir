@@ -21,6 +21,7 @@ using Window = System.Windows.Window;
 using ElirEditor.Core;
 
 using Console = ElirEditor.GUI.Console;
+using ElirEngine.Core;
 
 namespace ElirEditor
 {
@@ -59,6 +60,23 @@ namespace ElirEditor
             OpenTkControl.Loaded += (a, b) => { editorApp.Renderer.OnLoad(); };
             OpenTkControl.Render += editorApp.Renderer.OnRenderFrame;
             OpenTkControl.Unloaded += (a, b) => { editorApp.Renderer.OnUnload(); };
+            
+            KeyDown += (sender, args) =>
+            {
+                Input.KeyArgs keyArgs = new Input.KeyArgs();
+                keyArgs.key = (OpenTK.Windowing.GraphicsLibraryFramework.Keys) args.Key;
+                keyArgs.isRepeat = args.IsRepeat;
+                Input.KeyDown(keyArgs);
+            };
+
+            KeyUp += (sender, args) =>
+            {
+                Input.KeyArgs keyArgs = new Input.KeyArgs();
+                keyArgs.key = (OpenTK.Windowing.GraphicsLibraryFramework.Keys)args.Key;
+                keyArgs.isRepeat = args.IsRepeat;
+                Input.KeyUp(keyArgs);
+            };
+
             Log.Debug("WPF OpenTK Control iniciado.");
         }
     }

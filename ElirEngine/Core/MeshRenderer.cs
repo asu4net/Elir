@@ -48,6 +48,14 @@ namespace ElirEngine.Core
             shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }
 
+        public override void Start()
+        {
+            Input.OnKeyDown += (args) =>
+            {
+                Log.Info("Key " + args.key.ToString() + " down");
+            };
+        }
+
         public override void Update(TimeSpan delta)
         {
             if (shader != null)

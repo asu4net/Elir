@@ -38,6 +38,23 @@ namespace ElirEngine.Core
         {
             base.OnLoad();
             //Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+            
+            KeyDown += (args) =>
+            {
+                Input.KeyArgs keyArgs = new Input.KeyArgs();
+                keyArgs.key = args.Key;
+                keyArgs.isRepeat = args.IsRepeat;
+                Input.KeyDown(keyArgs);
+            };
+
+            KeyUp += (args) =>
+            {
+                Input.KeyArgs keyArgs = new Input.KeyArgs();
+                keyArgs.key = args.Key;
+                keyArgs.isRepeat = args.IsRepeat;
+                Input.KeyUp(keyArgs);
+            };
+
             renderer.OnLoad();
         }
 
