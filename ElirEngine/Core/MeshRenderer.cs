@@ -33,6 +33,12 @@ namespace ElirEngine.Core
         const string POS_ATR_NAME = "aPosition";
         const string COLOR_ATR_NAME = "shapeColor";
 
+        const string MODEL_ATR_NAME = "model";
+        const string PROJECTION_ATR_NAME = "projection";
+        const string VIEW_ATR_NAME = "view";
+
+        Matrix4 model;
+
         public override void Load()
         {
             mesh = new Mesh(vertices, indices, 12, 12);
@@ -48,21 +54,33 @@ namespace ElirEngine.Core
             shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }
 
-        public override void Start()
-        {
-            Input.OnKeyDown += (args) =>
-            {
-                Log.Info("Key " + args.key.ToString() + " down");
-            };
-        }
-
         public override void Update(TimeSpan delta)
         {
-            if (shader != null)
-                shader.Use();
+            Locate();
+        }
 
-            if (mesh != null)
-                mesh.Render();
+        void Locate()
+        {
+            if (entity.transform == null || shader == null || mesh == null)
+                return;
+
+            shader.Use();
+
+            var camera = Scene.MainCamera;
+
+            if (camera != null)
+            {
+                shader.SetUniformMat4(PROJECTION_ATR_NAME, camera.Projection);
+                shader.SetUniformMat4(VIEW_ATR_NAME, camera.View);
+            }
+
+            model = Matrix4.Identity;
+            model *= Matrix4.CreateTranslation(entity.transform.Position);
+            model *= Matrix4.CreateScale(entity.transform.Scale);
+
+            shader.SetUniformMat4(MODEL_ATR_NAME, model);
+
+            mesh.Render();
         }
     }
 }

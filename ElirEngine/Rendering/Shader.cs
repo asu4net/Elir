@@ -47,6 +47,12 @@ namespace ElirEngine.Rendering
             GL.Uniform4(location, value.X, value.Y, value.Z, value.W);
         }
 
+        public void SetUniformMat4(string attribName, Matrix4 value)
+        {
+            int location = GL.GetUniformLocation(shaderLocation, attribName);
+            GL.UniformMatrix4(location, false, ref value);
+        }
+
         public void Dispose()
         {
             Dispose(true);
