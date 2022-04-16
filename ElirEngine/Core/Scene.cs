@@ -37,7 +37,7 @@ namespace ElirEngine.Core
             var transform = entity.transform;
 
             if (transform != null)
-                transform.Position = new Vector3(0, 0, -3f);
+                transform.Position = new Vector3(0, 0, -5f);
 
             MainCamera = entity.AddComponent<Camera>();
             

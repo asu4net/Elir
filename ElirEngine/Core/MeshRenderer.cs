@@ -51,11 +51,13 @@ namespace ElirEngine.Core
             GL.EnableVertexAttribArray(posAtrPtr);
 
             shader.Use();
-            shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
+            //shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }
 
         public override void Update(TimeSpan delta)
         {
+            var t = entity.transform;
+            t.Rotation = new Vector3(0, t.Rotation.Y + delta.Milliseconds * 0.001f, 0);
             Locate();
         }
 
@@ -76,6 +78,11 @@ namespace ElirEngine.Core
 
             model = Matrix4.Identity;
             model *= Matrix4.CreateTranslation(entity.transform.Position);
+
+            model *= Matrix4.CreateRotationX(entity.transform.Rotation.X);
+            model *= Matrix4.CreateRotationY(entity.transform.Rotation.Y);
+            model *= Matrix4.CreateRotationZ(entity.transform.Rotation.Z);
+            
             model *= Matrix4.CreateScale(entity.transform.Scale);
 
             shader.SetUniformMat4(MODEL_ATR_NAME, model);
