@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ElirEngine.Core;
 using ElirEngine.Rendering;
+using OpenTK.Mathematics;
 
 namespace Game
 {
@@ -19,12 +20,25 @@ namespace Game
 
         public override void Run()
         {
-            var pyramid = new Entity("Pyramid");
-            pyramid.AddComponent<MeshRenderer>();
-            defaultScene.AddEntity(pyramid);
-            defaultScene.Activate();
+            var pyramid1 = CreatePyramid();
+            var pyramid2 = CreatePyramid();
 
+            pyramid2.transform.position = new Vector3(2, 0, 0);
+            
+            defaultScene.Activate();
             base.Run();
+        }
+
+        Entity CreatePyramid()
+        {
+            Entity pyramid = new Entity("Pyramid");
+
+            pyramid.AddComponent<MeshRenderer>();
+            pyramid.AddComponent<TestPyramid>();
+
+            defaultScene.AddEntity(pyramid);
+
+            return pyramid;
         }
     }
 }

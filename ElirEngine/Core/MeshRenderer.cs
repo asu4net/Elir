@@ -11,23 +11,10 @@ namespace ElirEngine.Core
 {
     public class MeshRenderer : Component
     {
-        int[] indices = {
-            0, 3, 1,
-            1, 3, 2,
-            2, 3, 0,
-            0, 1, 2
-        };
-
-        float[] vertices = {
-            -1.0f, -1.0f, 0.0f,
-             0.0f, -1.0f, 1.0f,
-             1.0f, -1.0f, 0.0f,
-             0.0f,  1.0f, 0.0f
-        };
-
         Color4 shapeColor = Color4.Red;
-
-        Mesh? mesh;
+        
+        public Mesh? mesh;
+        
         Shader? shader;
 
         const string POS_ATR_NAME = "aPosition";
@@ -41,8 +28,6 @@ namespace ElirEngine.Core
 
         public override void Load()
         {
-            mesh = new Mesh(vertices, indices, 12, 12);
-
             shader = new Shader();
 
             var posAtrPtr = shader.GetAttribLocation(POS_ATR_NAME);
@@ -56,14 +41,7 @@ namespace ElirEngine.Core
 
         public override void Update(TimeSpan delta)
         {
-            var t = entity.transform;
-            t.rotation = new Vector3(0, t.rotation.Y + delta.Milliseconds * 0.001f, 0);
-            Locate();
-        }
-
-        void Locate()
-        {
-            if (entity.transform == null || shader == null || mesh == null)
+            if (shader == null || mesh == null)
                 return;
 
             shader.Use();
@@ -77,12 +55,13 @@ namespace ElirEngine.Core
             }
 
             model = Matrix4.Identity;
-            model *= Matrix4.CreateTranslation(entity.transform.position);
 
             model *= Matrix4.CreateRotationX(entity.transform.rotation.X);
             model *= Matrix4.CreateRotationY(entity.transform.rotation.Y);
             model *= Matrix4.CreateRotationZ(entity.transform.rotation.Z);
-            
+
+            model *= Matrix4.CreateTranslation(entity.transform.position);
+
             model *= Matrix4.CreateScale(entity.transform.scale);
 
             shader.SetUniformMat4(MODEL_ATR_NAME, model);

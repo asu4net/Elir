@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElirEngine.Rendering
 {
-    internal class Mesh : IDisposable
+    public class Mesh : IDisposable
     {
         int VAO;
         int VBO;
