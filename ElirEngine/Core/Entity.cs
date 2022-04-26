@@ -9,30 +9,19 @@ namespace ElirEngine.Core
     public class Entity
     {
         public string name;
-
-        public Transform? transform;
-        public MeshRenderer? meshRenderer;
+        public Transform transform;
 
         public Entity(string name = "Entity")
         {
             this.name = name;
-            AddComponent<Transform>();
+            transform = AddComponent<Transform>();
         }
 
         List<Component> components = new List<Component>();
 
-        public T? AddComponent<T>() where T : Component, new()
+        public T AddComponent<T>() where T : Component, new()
         {
-            var component = new T();
-
-            if (component == null)
-                return null;
-
-            if (component is MeshRenderer)
-                meshRenderer = component as MeshRenderer;
-
-            if (component is Transform)
-                transform = component as Transform;
+            T component = new T();
 
             components.Add(component);
             component.entity = this;
@@ -43,19 +32,10 @@ namespace ElirEngine.Core
         {
             var component = components.Find(c => c.GetType().Equals(typeof(T)));
 
-            if (component == null)
+            if (component is null)
                 return null;
 
             return component as T;
-        }
-
-        public void UpdateEssentialComponents(TimeSpan delta)
-        {
-            if (transform != null)
-                transform.Update(delta);
-
-            if (meshRenderer != null)
-                meshRenderer.Update(delta);
         }
 
         public void LoadComponents()

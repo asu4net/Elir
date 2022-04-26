@@ -57,7 +57,7 @@ namespace ElirEngine.Core
         public override void Update(TimeSpan delta)
         {
             var t = entity.transform;
-            t.Rotation = new Vector3(0, t.Rotation.Y + delta.Milliseconds * 0.001f, 0);
+            t.rotation = new Vector3(0, t.rotation.Y + delta.Milliseconds * 0.001f, 0);
             Locate();
         }
 
@@ -68,22 +68,22 @@ namespace ElirEngine.Core
 
             shader.Use();
 
-            var camera = Scene.MainCamera;
+            var activeScene = Scene.CurrentActiveScene;
 
-            if (camera != null)
+            if (activeScene != null)
             {
-                shader.SetUniformMat4(PROJECTION_ATR_NAME, camera.Projection);
-                shader.SetUniformMat4(VIEW_ATR_NAME, camera.View);
+                shader.SetUniformMat4(PROJECTION_ATR_NAME, activeScene.MainCamera.Projection);
+                shader.SetUniformMat4(VIEW_ATR_NAME, activeScene.MainCamera.View);
             }
 
             model = Matrix4.Identity;
-            model *= Matrix4.CreateTranslation(entity.transform.Position);
+            model *= Matrix4.CreateTranslation(entity.transform.position);
 
-            model *= Matrix4.CreateRotationX(entity.transform.Rotation.X);
-            model *= Matrix4.CreateRotationY(entity.transform.Rotation.Y);
-            model *= Matrix4.CreateRotationZ(entity.transform.Rotation.Z);
+            model *= Matrix4.CreateRotationX(entity.transform.rotation.X);
+            model *= Matrix4.CreateRotationY(entity.transform.rotation.Y);
+            model *= Matrix4.CreateRotationZ(entity.transform.rotation.Z);
             
-            model *= Matrix4.CreateScale(entity.transform.Scale);
+            model *= Matrix4.CreateScale(entity.transform.scale);
 
             shader.SetUniformMat4(MODEL_ATR_NAME, model);
 

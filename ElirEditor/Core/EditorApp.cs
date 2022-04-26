@@ -13,7 +13,7 @@ namespace ElirEditor.Core
     /// después de iniciar la ventana de WPF. Aquí irá
     /// la lógica relacionada con el editor.
     /// </summary>
-    public class EditorApp : ElirEngine.Core.App
+    public class EditorApp : ElirEngine.Core.ElirApp
     {
         public EditorApp(Renderer renderer) : base(renderer) {}
 

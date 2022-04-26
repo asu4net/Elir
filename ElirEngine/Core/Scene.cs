@@ -10,58 +10,71 @@ namespace ElirEngine.Core
 {
     public class Scene
     {
-        public static Camera? MainCamera { get; private set; }
+        public static Scene? CurrentActiveScene { get; private set; }
+
+        public Camera MainCamera
+        {
+            get => mainCamera;
+            
+            set
+            {
+                if (value == null)
+                    return;
+                mainCamera = value;
+            }
+        }
 
         public string name;
         public int buildIndex;
 
+        Camera mainCamera;
         Renderer renderer;
-
         List<Entity> entities = new List<Entity>();
+        Vector3 startMainCamPos = new Vector3(0, 0, -5f);
 
         public Scene(string name, int buildIndex, Renderer renderer)
         {
             this.name = name;
             this.buildIndex = buildIndex;
             this.renderer = renderer;
-            renderer.OnWindowLoaded += Load;
-            renderer.OnUpdate += UpdateEntityEssentials;
-            renderer.OnDestroy += Unload;
-
-            CreateMainCamera();
-        }
-
-        void CreateMainCamera()
-        {
-            var entity = new Entity();
-            var transform = entity.transform;
-
-            if (transform != null)
-                transform.Position = new Vector3(0, 0, -5f);
-
-            MainCamera = entity.AddComponent<Camera>();
             
-            AddEntity(entity);
+            //Creación de la cámara por defecto.
+            var mainCameraEnt = new Entity();
+            mainCameraEnt.transform.position = startMainCamPos;
+            mainCamera = mainCameraEnt.AddComponent<Camera>();
+            AddEntity(mainCameraEnt);
         }
 
         public void AddEntity(Entity entity)
             => entities.Add(entity);
 
-        public void Load()
+        public void LoadEntities()
             => entities.ForEach(e => e.LoadComponents());
 
-        public void Init()
+        public void Activate()
         {
-            renderer.OnUpdate -= UpdateEntityEssentials;
+            if (CurrentActiveScene != null)
+                Deactivate();
+
+            renderer.OnWindowLoaded += LoadEntities;
+            renderer.OnDestroy += UnloadEntities;
+
+            CurrentActiveScene = this;
             entities.ForEach(e => e.StartComponents());
             renderer.OnUpdate += UpdateEntities;
         }
 
-        public void Unload()
-            => entities.ForEach(e => e.UnloadComponents());
+        public void Deactivate()
+        {
+            renderer.OnUpdate -= UpdateEntities;
+            renderer.OnWindowLoaded -= LoadEntities;
+            renderer.OnDestroy -= UnloadEntities;
 
-        void UpdateEntityEssentials(TimeSpan delta)
-            => entities.ForEach(e => e.UpdateEssentialComponents(delta));
+            UnloadEntities();
+        }
+
+        public void UnloadEntities()
+            => entities.ForEach(e => e.UnloadComponents());
 
         void UpdateEntities(TimeSpan delta)
             => entities.ForEach(e => e.UpdateComponents(delta));

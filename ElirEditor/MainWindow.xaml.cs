@@ -40,7 +40,7 @@ namespace ElirEditor
             Log.Debug("Ventana creada.");
 
             //Creación de la implementación de ElirEngine para el editor.
-            editorApp = (EditorApp)ElirEngine.Core.App.Create(new EditorApp
+            editorApp = (EditorApp)ElirEngine.Core.ElirApp.Create(new EditorApp
                 (new Renderer(Renderer.WindowSettings.Default)));
 
             OpenTKControlInit();
