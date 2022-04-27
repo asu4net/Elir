@@ -1,6 +1,4 @@
-﻿using ElirEngine.Rendering;
-
-namespace ElirEngine.Core
+﻿namespace ElirEngine.Core
 {
     /// <summary>
     /// Clase padre de cualquier aplicación de Elir.
@@ -8,21 +6,14 @@ namespace ElirEngine.Core
     /// </summary>
     public abstract class ElirApp
     {
-        public Renderer Renderer { get; private set; }
-
-        protected ElirApp(Renderer renderer)
-        {
-            Renderer = renderer;
-        }
-
         /// <summary>
         /// El método Run se llama justo después de que
         /// la aplicación sea creada y por defecto crea
-        /// una ventana de elir.
+        /// una ventana de OpenTK.
         /// </summary>
         public virtual void Run()
         {
-            Window window = new Window(Renderer);
+            Window window = new Window();
             window.Run();
         }
 

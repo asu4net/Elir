@@ -17,7 +17,7 @@ namespace ElirEngine.Core
             public Keys key;
             public bool isRepeat;
         }
-
+         
         public static void KeyDown(KeyArgs args)
             => OnKeyDown?.Invoke(args);
 

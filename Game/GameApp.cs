@@ -13,9 +13,9 @@ namespace Game
     {
         Scene defaultScene;
 
-        public GameApp(Renderer renderer) : base(renderer)
+        public GameApp()
         {
-            defaultScene = new Scene("Default", 0, renderer);        
+            defaultScene = new Scene("Default", 0);        
         }
 
         public override void Run()

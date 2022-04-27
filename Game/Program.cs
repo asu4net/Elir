@@ -1,5 +1,4 @@
 ﻿using Game;
 using ElirEngine.Rendering;
 
-GameApp app = (GameApp) ElirEngine.Core.ElirApp.Create(new GameApp
-                (new Renderer(Renderer.WindowSettings.Default)));
+GameApp app = (GameApp) ElirEngine.Core.ElirApp.Create(new GameApp());

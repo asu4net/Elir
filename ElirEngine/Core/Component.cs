@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace ElirEngine.Core
 {
-    public class Component
+    public abstract class Component
     {
+        #pragma warning disable CS8618 
         public Entity entity;
+        #pragma warning restore CS8618
 
-        public virtual void Load() { }
-        public virtual void Start() { }
-        public virtual void Update(TimeSpan delta) { }
-        public virtual void Unload() { }
+        public virtual void OnLoad() { }
+        public virtual void Update() { }
+        public virtual void OnUnload() { }
     }
 }

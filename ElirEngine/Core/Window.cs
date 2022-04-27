@@ -19,24 +19,19 @@ namespace ElirEngine.Core
     /// </summary>
     public class Window : GameWindow
     {
-        Renderer renderer;
-
-        public Window(Renderer renderer)
+        public Window()
 
             : base(GameWindowSettings.Default,
 
                   new NativeWindowSettings()
                   {
-                      Size = new Vector2i(renderer.wSettings.xSize, renderer.wSettings.ySize),
-                      APIVersion = new Version(renderer.wSettings.glMinorVersion, renderer.wSettings.glMajorVersion)
+                      Size = new Vector2i(Renderer.wSettings.xSize, Renderer.wSettings.ySize),
+                      APIVersion = new Version(Renderer.wSettings.glMinorVersion, Renderer.wSettings.glMajorVersion)
                   })
-        {
-            this.renderer = renderer;
-        }
+        {}
 
         protected override void OnLoad()
         {
-            base.OnLoad();
             //Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
             
             KeyDown += (args) =>
@@ -55,29 +50,21 @@ namespace ElirEngine.Core
                 Input.KeyUp(keyArgs);
             };
 
-            renderer.OnLoad();
+            Renderer.Load();
         }
 
         protected override void OnResize(ResizeEventArgs e)
-        {
-            base.OnResize(e);
-            
-            //Actualizamos el viewport de OpenGL
-            GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
-        }
+            => GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             base.OnRenderFrame(args);
             TimeSpan timeSpan = TimeSpan.FromSeconds(args.Time);
-            renderer.OnRenderFrame(timeSpan);
+            Renderer.RenderFrame(timeSpan);
             SwapBuffers();
         }
 
         protected override void OnUnload()
-        {
-            base.OnUnload();
-            renderer.OnUnload();
-        }
+            => Renderer.Unload();
     }
 }

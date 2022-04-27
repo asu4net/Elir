@@ -26,7 +26,9 @@ namespace Game
              0.0f,  1.0f, 0.0f
         };
 
-        public override void Load()
+        float speed = 1;
+
+        public override void OnLoad()
         {
             var mesh = new Mesh(vertices, indices, 12, 12);
             var meshRenderer = entity.GetComponent<MeshRenderer>();
@@ -36,10 +38,10 @@ namespace Game
             meshRenderer.mesh = mesh;
         }
 
-        public override void Update(TimeSpan delta)
+        public override void Update()
         {
             var t = entity.transform;
-            t.rotation = new Vector3(0, t.rotation.Y + delta.Milliseconds * 0.001f, 0);
+            t.rotation = new Vector3(0, t.rotation.Y + speed * Time.deltaTime, 0);
         }
     }
 }

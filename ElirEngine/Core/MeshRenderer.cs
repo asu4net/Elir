@@ -26,7 +26,7 @@ namespace ElirEngine.Core
 
         Matrix4 model;
 
-        public override void Load()
+        public override void OnLoad()
         {
             shader = new Shader();
 
@@ -39,7 +39,7 @@ namespace ElirEngine.Core
             //shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }
 
-        public override void Update(TimeSpan delta)
+        public override void Update()
         {
             if (shader == null || mesh == null)
                 return;

@@ -28,15 +28,13 @@ namespace ElirEngine.Core
         public int buildIndex;
 
         Camera mainCamera;
-        Renderer renderer;
         List<Entity> entities = new List<Entity>();
         Vector3 startMainCamPos = new Vector3(0, 0, -5f);
 
-        public Scene(string name, int buildIndex, Renderer renderer)
+        public Scene(string name, int buildIndex)
         {
             this.name = name;
             this.buildIndex = buildIndex;
-            this.renderer = renderer;
             
             //Creación de la cámara por defecto.
             var mainCameraEnt = new Entity();
@@ -56,19 +54,18 @@ namespace ElirEngine.Core
             if (CurrentActiveScene != null)
                 Deactivate();
 
-            renderer.OnWindowLoaded += LoadEntities;
-            renderer.OnDestroy += UnloadEntities;
+            Renderer.OnLoad += LoadEntities;
+            Renderer.OnUnload += UnloadEntities;
 
             CurrentActiveScene = this;
-            entities.ForEach(e => e.StartComponents());
-            renderer.OnUpdate += UpdateEntities;
+            Renderer.OnRenderFrame += (delta) =>  UpdateEntities();
         }
 
         public void Deactivate()
         {
-            renderer.OnUpdate -= UpdateEntities;
-            renderer.OnWindowLoaded -= LoadEntities;
-            renderer.OnDestroy -= UnloadEntities;
+            Renderer.OnRenderFrame -= (delta) => UpdateEntities();
+            Renderer.OnLoad -= LoadEntities;
+            Renderer.OnUnload -= UnloadEntities;
 
             UnloadEntities();
         }
@@ -76,7 +73,7 @@ namespace ElirEngine.Core
         public void UnloadEntities()
             => entities.ForEach(e => e.UnloadComponents());
 
-        void UpdateEntities(TimeSpan delta)
-            => entities.ForEach(e => e.UpdateComponents(delta));
+        void UpdateEntities()
+            => entities.ForEach(e => e.UpdateComponents());
     }
 }

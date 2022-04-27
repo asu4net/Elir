@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ElirEngine.Core;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -13,7 +15,7 @@ namespace ElirEngine.Rendering
     /// con el renderizado del engine en los que se
     /// ejecutará código de OpenGL.
     /// </summary>
-    public class Renderer
+    public static class Renderer
     {
         public struct WindowSettings
         {
@@ -33,36 +35,37 @@ namespace ElirEngine.Rendering
             }
         }
 
-        public WindowSettings wSettings { get; private set; }
+        public static WindowSettings wSettings = WindowSettings.Default;
 
-        public Renderer(WindowSettings wSettings) 
-            => this.wSettings = wSettings;
+        public static event Action? OnLoad;
+        public static event Action<TimeSpan>? OnRenderFrame;
+        public static event Action? OnUnload;
 
-        public event Action? OnWindowLoaded;
-        public event Action<TimeSpan>? OnUpdate;
-        public event Action? OnDestroy;
+        public static Color4 backgroundColor = Color4.Black;
 
-        Color4 backgroundColor = Color4.Black;
+        static Stopwatch stopWatch;
 
         //Llamar cuando se cargue la ventana.
-        public void OnLoad()
+        public static void Load()
         {
+            stopWatch = Stopwatch.StartNew();
             Log.Debug("Renderer iniciado.");
-            OnWindowLoaded?.Invoke();
+            OnLoad?.Invoke();
         }
 
         //Llamar cada vez que se renderiza un frame.
-        public void OnRenderFrame(TimeSpan delta)
+        public static void RenderFrame(TimeSpan delta)
         {
             GL.ClearColor(backgroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
-            OnUpdate?.Invoke(delta);
+            Time.CalculateDeltaTime((float) stopWatch.Elapsed.TotalSeconds);
+            OnRenderFrame?.Invoke(delta);
 
             GL.Finish();
         }
 
-        public void OnUnload()
-            => OnDestroy?.Invoke();
+        public static void Unload()
+            => OnUnload?.Invoke();
     }
 }

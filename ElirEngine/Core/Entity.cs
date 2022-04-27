@@ -39,15 +39,10 @@ namespace ElirEngine.Core
         }
 
         public void LoadComponents()
-            => components.ForEach(c => c.Load());
-
-        public void StartComponents()
-            => components.ForEach(c => c.Start());
-
-        public void UpdateComponents(TimeSpan delta)
-            => components.ForEach(c => c.Update(delta));
-
+            => components.ForEach(c => c.OnLoad());
+        public void UpdateComponents()
+            => components.ForEach(c => c.Update());
         public void UnloadComponents()
-            => components.ForEach(c => c.Unload());
+            => components.ForEach(c => c.OnUnload());
     }
 }
