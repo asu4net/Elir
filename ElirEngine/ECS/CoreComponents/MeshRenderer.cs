@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElirEngine.Rendering;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace ElirEngine.Core
+namespace ElirEngine
 {
     public class MeshRenderer : Component
     {
@@ -17,7 +16,6 @@ namespace ElirEngine.Core
         
         Shader? shader;
 
-        const string POS_ATR_NAME = "aPosition";
         const string COLOR_ATR_NAME = "shapeColor";
 
         const string MODEL_ATR_NAME = "model";
@@ -29,12 +27,6 @@ namespace ElirEngine.Core
         public override void OnLoad()
         {
             shader = new Shader();
-
-            var posAtrPtr = shader.GetAttribLocation(POS_ATR_NAME);
-
-            GL.VertexAttribPointer(posAtrPtr, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(posAtrPtr);
-
             shader.Use();
             //shader.SetUniformVec4(COLOR_ATR_NAME, (Vector4)shapeColor);
         }

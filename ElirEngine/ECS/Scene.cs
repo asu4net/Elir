@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElirEngine.Rendering;
 using OpenTK.Mathematics;
 
-namespace ElirEngine.Core
+namespace ElirEngine
 {
     public class Scene
     {

@@ -16,7 +16,7 @@ namespace ElirEngine
 
             if (string.IsNullOrEmpty(projectName))
             {
-                Log.Error($"GetProjectDir: Error en Assembly.GetCallingAssembly().");
+                Console.WriteLine($"GetProjectDir: Error en Assembly.GetCallingAssembly().");
                 return default;
             }
 
@@ -25,7 +25,7 @@ namespace ElirEngine
 
             if (string.IsNullOrEmpty(elirEngineStr))
             {
-                Log.Error($"GetProjectDir: Error en [CallerFilePath] {projectName}");
+                Console.WriteLine($"GetProjectDir: Error en [CallerFilePath] {projectName}");
                 return default;
             }
 

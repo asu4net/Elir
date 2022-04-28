@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElirEngine.Rendering
+namespace ElirEngine
 {
     public class Shader : IDisposable
     {
@@ -18,7 +18,7 @@ namespace ElirEngine.Rendering
         int shaderLocation;
         bool disposeableValue;
 
-        const string SHADER_FOLDER = "Shaders";
+        const string SHADER_FOLDER = "Rendering/Shaders";
         const string VERTEX_PATH = "shader.vert";
         const string FRAGMENT_PATH = "shader.frag";
 
@@ -83,31 +83,26 @@ namespace ElirEngine.Rendering
 
         int CreateShader(ShaderType type, string path)
         {
-            Log.Debug($"Creando {path}...");
             var completePath = $"{Utils.GetProjectDir()}{@"\"}{SHADER_FOLDER}{@"\"}{path}";
             int shader = GL.CreateShader(type);
             GL.ShaderSource(shader, GetSourceCode(completePath));
-            Log.Debug($"{path} creado.");
             return shader;
         }
 
         bool CompileShader(int shader, string path)
         {
-            Log.Debug($"Compilando {path}...");
             GL.CompileShader(shader);
             var shaderError = GL.GetShaderInfoLog(shader);
             if (shaderError != string.Empty)
             {
-                Log.Error($"Error de compilado en {path} : {shaderError}");
+                Console.WriteLine($"Error de compilado en {path} : {shaderError}");
                 return false;
             }
-            Log.Debug($"{path} compilado.");
             return true;
         }
 
         void CreateHandle(int vertex, int fragment)
         {
-            Log.Debug($"Combinando shaders...");
             shaderLocation = GL.CreateProgram();
 
             GL.AttachShader(shaderLocation, vertex);
@@ -120,7 +115,6 @@ namespace ElirEngine.Rendering
 
             GL.DeleteShader(vertex);
             GL.DeleteShader(fragment);
-            Log.Debug($"Shaders combinados.");
         }
     }
 }

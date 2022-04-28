@@ -1,4 +1,4 @@
-﻿namespace ElirEngine.Core
+﻿namespace ElirEngine
 {
     /// <summary>
     /// Clase padre de cualquier aplicación de Elir.
@@ -13,7 +13,7 @@
         /// </summary>
         public virtual void Run()
         {
-            Window window = new Window();
+            ElirWindow window = new ElirWindow();
             window.Run();
         }
 
@@ -25,7 +25,6 @@
         public static ElirApp Create(ElirApp app)
         {
             app.Run();
-            Log.Debug("Aplicación creada.");
             return app;
         }
     }

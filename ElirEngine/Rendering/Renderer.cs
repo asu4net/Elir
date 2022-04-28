@@ -4,11 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElirEngine.Core;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace ElirEngine.Rendering
+namespace ElirEngine
 {
     /// <summary>
     /// En esta clase contendrá métodos relacionados
@@ -49,7 +48,6 @@ namespace ElirEngine.Rendering
         public static void Load()
         {
             stopWatch = Stopwatch.StartNew();
-            Log.Debug("Renderer iniciado.");
             OnLoad?.Invoke();
         }
 

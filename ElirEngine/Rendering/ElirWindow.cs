@@ -8,18 +8,17 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using ElirEngine.Rendering;
 
-namespace ElirEngine.Core
+namespace ElirEngine
 {
     /// <summary>
     /// Controla la ventana principal de Elir.
     /// Ejecuta funciones de OpenGL en un Framework 
     /// simplificado por las librerías de OpenTK.
     /// </summary>
-    public class Window : GameWindow
+    public class ElirWindow : GameWindow
     {
-        public Window()
+        public ElirWindow()
 
             : base(GameWindowSettings.Default,
 

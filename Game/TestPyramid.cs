@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElirEngine.Core;
-using ElirEngine.Rendering;
 using OpenTK.Mathematics;
+using ElirEngine;
 
 namespace Game
 {
@@ -30,6 +29,7 @@ namespace Game
 
         public override void OnLoad()
         {
+            entity.transform.scale *= 0.5f;
             var mesh = new Mesh(vertices, indices, 12, 12);
             var meshRenderer = entity.GetComponent<MeshRenderer>();
             

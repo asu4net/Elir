@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElirEngine.Rendering
+namespace ElirEngine
 {
     public class Mesh : IDisposable
     {

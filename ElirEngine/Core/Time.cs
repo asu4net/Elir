@@ -5,8 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElirEngine.Core
+namespace ElirEngine
 {
+    /// <summary>
+    /// Clase estática que se encarga de calcular 
+    /// el  deltaTime.
+    /// </summary>
     public static class Time
     {
         /// <summary>
@@ -17,8 +21,12 @@ namespace ElirEngine.Core
 
         static float lastTime;
 
-        //TODO: cambiar por internal al reorganizar los packages
-        public static void CalculateDeltaTime(float currentTime)
+        /// <summary>
+        /// Función que se llama desde el Renderer y setea
+        /// la variable deltaTime.
+        /// </summary>
+        /// <param name="currentTime">Tiempo que pasó desde que se inició el Renderer</param>
+        internal static void CalculateDeltaTime(float currentTime)
         {
             deltaTime = currentTime - lastTime;
             lastTime = currentTime;
