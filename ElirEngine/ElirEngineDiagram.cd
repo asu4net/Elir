@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ElirEngine.ElirApp">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Core\ElirApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Input">
+    <Position X="2.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ElirEngine.Input.KeyArgs">
+        <TypeIdentifier>
+          <NewMemberFileName>Core\Input.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAgAAAAAgAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Time">
+    <Position X="4.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Time.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Utils">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Camera">
+    <Position X="14.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAgAAAAAAABAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>ECS\CoreComponents\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.MeshRenderer">
+    <Position X="16.75" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IIQAAAAAAAAAAAAgACAAAAACAAABAAAAIAAAAEAIAAA=</HashCode>
+      <FileName>ECS\CoreComponents\MeshRenderer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mesh" />
+      <Field Name="shader" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ElirEngine.Transform">
+    <Position X="19" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAIAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECS\CoreComponents\Transform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Component">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>ECS\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Entity">
+    <Position X="13" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAIAAAAAACABAAAAAAEAAAAIAAAAAAAAIA=</HashCode>
+      <FileName>ECS\Entity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="components" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ElirEngine.Scene">
+    <Position X="9" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAABAAABAAQAAAAAAAAAEEQAAAZAIAAAQAAA=</HashCode>
+      <FileName>ECS\Scene.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="entities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ElirEngine.ElirWindow">
+    <Position X="0.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAACAAAAACAAAAAAAAAQAAA=</HashCode>
+      <FileName>Rendering\ElirWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Mesh" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAACAAAAAAAAAAAAAAAAAAAAEAABAAAABEAgA=</HashCode>
+      <FileName>Rendering\Mesh.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElirEngine.Renderer">
+    <Position X="3" Y="4.75" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ElirEngine.Renderer.WindowSettings">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendering\Renderer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAAAAEAAAAACAAAAACgAAAgAgAAQAAA=</HashCode>
+      <FileName>Rendering\Renderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElirEngine.Shader" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGAAACAIIEAAAIAAAAAAEAAEAAAwAAAAiAAQAAA=</HashCode>
+      <FileName>Rendering\Shader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
