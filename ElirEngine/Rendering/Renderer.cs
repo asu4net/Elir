@@ -54,6 +54,7 @@ namespace ElirEngine
         //Llamar cada vez que se renderiza un frame.
         public static void RenderFrame(TimeSpan delta)
         {
+            GL.Enable(EnableCap.DepthTest);
             GL.ClearColor(backgroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
