@@ -58,6 +58,7 @@ namespace ElirEngine
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             base.OnRenderFrame(args);
+            Input.ReadMouse(MouseState.Delta);
             TimeSpan timeSpan = TimeSpan.FromSeconds(args.Time);
             Renderer.RenderFrame(timeSpan);
             SwapBuffers();

@@ -40,8 +40,11 @@ namespace Game
 
         public override void Update()
         {
-            var t = entity.transform;
-            t.rotation = new Vector3(0, t.rotation.Y + speed * Time.deltaTime, 0);
+            //var t = entity.transform;
+            //t.rotation = new Vector3(0, t.rotation.Y + speed * Time.deltaTime, 0);
+            //var rotDir = new Vector3(Input.Mouse.Y, Input.Mouse.X, 0);
+            //entity.transform.rotation += rotDir * speed * Time.deltaTime;
+            //Console.WriteLine(entity.transform.rotation);
         }
     }
 }

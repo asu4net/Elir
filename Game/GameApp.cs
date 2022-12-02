@@ -19,25 +19,19 @@ namespace Game
 
         public override void Run()
         {
-            var pyramid1 = CreatePyramid();
-            var pyramid2 = CreatePyramid();
+            //defaultScene.MainCamera.entity.AddComponent<SimpleCameraMove>();
 
-            pyramid2.transform.position = new Vector3(2, 0, 0);
+            Entity pyramid = new Entity();
+
+            pyramid.AddComponent<MoveEntity>();
+            pyramid.AddComponent<MeshRenderer>();
+            pyramid.AddComponent<TestPyramid>();
+
+            defaultScene.AddEntity(pyramid);
             
             defaultScene.Activate();
             base.Run();
         }
 
-        Entity CreatePyramid()
-        {
-            Entity pyramid = new Entity("Pyramid");
-
-            pyramid.AddComponent<MeshRenderer>();
-            pyramid.AddComponent<TestPyramid>();
-
-            defaultScene.AddEntity(pyramid);
-
-            return pyramid;
-        }
     }
 }
